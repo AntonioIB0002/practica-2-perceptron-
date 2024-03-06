@@ -24,6 +24,7 @@ class Window(QMainWindow):
         self.w1 = round(random.uniform(0, 1), 5)
         self.w2 = round(random.uniform(0, 1), 5)
         self.bias = round(random.uniform(0, 1), 5)
+
         self.Cartesiano()
         self.ui.pushButton_graficar.clicked.connect(self.grafica)
         self.ui.pushButton_reset.clicked.connect(self.reset)
@@ -116,10 +117,10 @@ class Window(QMainWindow):
             conf_matrix = self.confusion_matrix(np.array(y_true), np.array(y_pred))
             f1score = self.f1_score(np.array(y_true), np.array(y_pred))
 
-            print("Precisión:", precision_value)
-            print("Matriz de Confusión:")
-            print(conf_matrix)
-            print("F1 Score:", f1score)
+            self.ui.lineEdit_f1score.setText(str(precision_value))
+            self.ui.lineEdit_Matrizconfu.setText(str(conf_matrix))
+            self.ui.lineEdit_presicion.setText(str(f1score))
+            
 
             self.contador += 1
 
@@ -167,7 +168,11 @@ class Window(QMainWindow):
         self.ui.lineEdit_bias.setText(str(self.bias))
         self.ui.lineEdit_w1.setText(str(self.w1))
         self.ui.lineEdit_w2.setText(str(self.w2))
+        self.ui.lineEdit_f1score.clear()
+        self.ui.lineEdit_Matrizconfu.clear()
+        self.ui.lineEdit_presicion.clear()
         self.error.clear()
+        self.line_item = None
 
     def grafica(self):
         if self.validacion():
